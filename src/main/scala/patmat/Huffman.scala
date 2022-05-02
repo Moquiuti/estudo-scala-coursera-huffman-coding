@@ -210,7 +210,11 @@ trait Huffman extends HuffmanInterface {
    * a valid code tree that can be represented as a code table. Using the code tables of the
    * sub-trees, think of how to build the code table for the entire tree.
    */
-  def convert(tree: CodeTree): CodeTable = ???
+  def convert(tree: CodeTree): CodeTable = {
+    case Leaf(c, w) => List((c, List()))
+    case Fork(left, right, cs, w) => mergeCodeTables(convert(left), convert(right))
+  }
+
 
   /**
    * This function takes two code tables and merges them into one. Depending on how you
